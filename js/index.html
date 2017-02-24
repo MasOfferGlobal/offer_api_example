@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.blue-pink.min.css"/>
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    <style>
+        .shop_img {
+            max-height: 80px;
+        }
+    </style>
+</head>
+<body>
+<table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+    <thead>
+    <tr>
+        <th></th>
+        <th class="mdl-data-table__cell--non-numeric">Shop Id</th>
+        <th class="mdl-data-table__cell--non-numeric">Tên shop</th>
+        <th class="mdl-data-table__cell--non-numeric">Domain</th>
+        <th class="mdl-data-table__cell--non-numeric">Loại sản phẩm</th>
+        <th class="mdl-data-table__cell--non-numeric">Address</th>
+    </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+<script>
+    $('document').ready(function(){
+        var PUB_ID = 'masofferdemo';
+        var TOKEN = 'pMPjGuvSlNjiBx7AkXZ4bKyFKemSayMdOQFjsFXUc_Y';
+        var BASED_API_URL = "https://api.masoffer.com/offer/all?";
+        var API_URL = BASED_API_URL + "pub_id=" + PUB_ID + "&token=" + TOKEN;
+        var settings = {
+            "async": true,
+            "crossDomain": true,
+            "url": API_URL,
+            "method": "GET"
+        };
+
+        $.ajax(settings)
+            .done(function (response) {
+                var offer_data = response.data;
+                var table_body = $('table tbody');
+                offer_data.forEach(function(offer, index){
+                   var html = '<tr>';
+                   html += '<td class="mdl-data-table__cell--non-numeric"><img class="shop_img" src="' + offer.avatar + '"/></td>';
+                   html += '<td class="mdl-data-table__cell--non-numeric">' + offer.offer_id + '</td>';
+                   html += '<td class="mdl-data-table__cell--non-numeric">' + offer.name + '</td>';
+                   html += '<td class="mdl-data-table__cell--non-numeric"><a href="' + offer.domain + '"></a>' + offer.domain + '</td>';
+                   html += '<td class="mdl-data-table__cell--non-numeric">' + offer.product_type + '</td>';
+                   html += '<td class="mdl-data-table__cell--non-numeric">' + offer.address + '</td>';
+                   html += '</tr>';
+                   table_body.append(html);
+                });
+            });
+    });
+</script>
+</body>
+</html>
