@@ -14,6 +14,8 @@
         CURLOPT_URL => $API_URL,
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_CUSTOMREQUEST => "GET",
+        CURLOPT_SSL_VERIFYHOST => false,
+        CURLOPT_SSL_VERIFYPEER => false
     ));
 
     $response = curl_exec($curl);
